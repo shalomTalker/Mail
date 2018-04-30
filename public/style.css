@@ -1,0 +1,12 @@
+span {
+	height: 17.6px;
+	text-overflow: ellipsis !important;
+	overflow: hidden !important;
+	border: 0.8px solid black;
+  }
+  .row {
+  	display: flex;
+  	justify-content: space-between;
+	margin: 1rem 0 1rem 0;
+	border: 0.8px solid black;
+  }

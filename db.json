@@ -1,0 +1,25 @@
+{
+   "emails": [
+				{
+					"id":1,
+				    "body": "1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero praesentium mollitia inventore consequatur perferendis architecto ut debitis suscipit tempora odio magni, consequuntur in id labore aspernatur dolor quasi. Perferendis, corrupti.",
+				    "subject": "subject1",
+				    "from": "from1@email.com",
+				    "date": "2018-01-01"
+				},
+				{
+					"id":2,
+				    "body": "2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic perspiciatis voluptate libero saepe sequi! Expedita error neque, minus a illo aliquam temporibus tenetur, eum nobis, magnam reiciendis aperiam iusto possimus!",
+				    "subject": "subject2",
+				    "from": "from2@email.com",
+				    "date": "2018-01-02"
+				},
+				{
+					"id":3,
+				    "body": "3Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod necessitatibus sed porro harum, et voluptate fuga, nesciunt dolor, nobis ut earum! Totam non nam quo, obcaecati animi esse fuga facilis!",
+				    "subject": "subject3",
+				    "from": "from3@email.com",
+				    "date": "2018-01-03"
+				}
+			]
+}
