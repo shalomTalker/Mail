@@ -1,25 +1,27 @@
 $.get('/emails', function(emails) 
 {
-	console.log(emails);
 	emails.forEach(email =>  
 	{
-		buildEmail(email);
+		createEmailRow(email).appendTo('main');
 	});
 
-	var rows = $('.row');
+	var rows = $('.expand');
 	rows.click(function(event)
 	{	
-		$('.container').empty();
-		var row = $(event.target.parentNode).children();
-		var containerShow = $('<div>').addClass('container');
-		for (var i = 0; i < row.length; i++) 
+		$('.popContainer').empty();
+		var popContainer = $('<div>').addClass('popContainer');
+		var row = $(event.target.parentNode);
+		var span = row.find('span');			
+		for (var i = 0; i < span.length; i++) 
 		{
-				var fieldText = row[i].textContent;
+				var fieldText = span[i].innerText;
 				var p = $('<p>', {
 					text: fieldText,
 				})
-				p.appendTo(containerShow);
+				p.appendTo(popContainer);
 		};
+		
+		popContainer.appendTo('main');
 		var delBtn = $('<input>', {
 			type: 'submit', 
 			class: 'btn btn-default pull-left',
@@ -50,67 +52,68 @@ $.get('/emails', function(emails)
 				});
 			},
 		});
-		delBtn.appendTo(containerShow);
-		editBtn.appendTo(containerShow);
-		containerShow.appendTo('main');
-	})
+		delBtn.appendTo(popContainer);
+		editBtn.appendTo(popContainer);
+		popContainer.appendTo('main');
+	});
 });
-
-	// function (dblclickEvent) {
-		// 	var dd = $(Event.target);
-		// 	var previous = dd.text();
-		// 	dd.html($('<input>', {
-		// 		value: previous,
-		// 		keyup: function (keyupEvent) {
-		// 			var input = $(keyupEvent.target);
-		// 			switch (keyupEvent.keyCode) {
-		// 				case 13: // enter
-		// 					var newValue = input.val();
-		// 					dd.html(newValue);
-		// 					break;
-		// 				case 27: // Esc
-		// 					dd.html(previous);
-		// 					break;
-		// 			}
-
-		// 		}
-		// 	}))
-		// }
 		
 
-	function buildEmail(email)
-	{
-		var emailDiv = $('<div class="row">');
 
-		$('<span>', 
-		{
-			class: "id col-sm-1",
-			text: `id: ${email.id}`,
-		}).appendTo(emailDiv);
+function createEmailRow(email) 
+{
+	var emailObj = $('<dl class="row">');
 
-		$('<span>', 
-		{
-			class: "body col-sm-3",
-			text: `body: ${email.body}`,
-		}).appendTo(emailDiv);
+	var spanId = $('<span class="col-sm-1 id">');
+	var idKey = createEmailKey('id:').appendTo(spanId);
+	var idValue = createEmailValue(email.id).appendTo(spanId);
+	spanId.appendTo(emailObj);
 
-		$('<span>', 
-		{
-			class: "subject col-sm-2",
-			text: `subject: ${email.subject}`,
-		}).appendTo(emailDiv);
+	var spanBody = $('<span class="col-sm-3 body">');
+	var bodyKey = createEmailKey('body:').appendTo(spanBody);
+	var bodyValue = createEmailValue(email.body).appendTo(spanBody);
+	spanBody.appendTo(emailObj);
+	
+	var spanSubject = $('<span class="col-sm-2 subject">');
+	var subjectKey = createEmailKey('subject:').appendTo(spanSubject);
+	var subjectValue = createEmailValue(email.subject).appendTo(spanSubject);
+	spanSubject.appendTo(emailObj);
 
-		$('<span>', 
-		{
-			class: "from col-sm-3",
-			text: `from: ${email.from}`,
-		}).appendTo(emailDiv);
+	var spanFrom = $('<span class="col-sm-3 from">');
+	var fromKey = createEmailKey('from:').appendTo(spanFrom);
+	var fromValue = createEmailValue(email.from).appendTo(spanFrom);
+	spanFrom.appendTo(emailObj);
 
-		$('<span>', 
-		{
-			class: "date col-sm-2",
-			text: `date: ${email.date}`,
-		}).appendTo(emailDiv);
+	var spanDate = $('<span class="col-sm-2 date">');
+	var dateKey = createEmailKey('date:').appendTo(spanDate);
+	var dateValue = createEmailValue(email.date).appendTo(spanDate);
+	spanDate.appendTo(emailObj);
 
-		$('main').append(emailDiv);
-	}
+	var expandBtn = $('<button>', {
+		class: "btn btn-default expand",
+
+	}).appendTo(emailObj);
+
+
+
+	return emailObj;
+}
+
+function createEmailKey(key) 
+{
+	return $('<dt>', {
+		text: toCapitalCase(key),
+		class: "key", 
+	});	
+}
+function createEmailValue(value) 
+{
+	return $('<dd>', {
+		text: value,
+		class: "value", 
+	});	
+}
+function toCapitalCase(string) 
+{
+	return string[0].toUpperCase() + string.slice(1)
+}
